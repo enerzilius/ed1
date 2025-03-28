@@ -1,8 +1,5 @@
-#include <stdio.h>
+// #include <iostream>
+// #include <algorithm>
 
-class ListSeq {
-public: 
-    int size = 0; 
-    int capacity;
-    int* data;
-};
+
+// using namespace std; // ! equivalente a from math import * 
