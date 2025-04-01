@@ -19,3 +19,7 @@ define o modelo representado e as operações possíveis
 - - Adicionar, inserir e remover
 - - Acessar e pesquisar
 - Implementado classicamente utilizando um vetor alocado na heap (código)
+
+## Makefile
+- -c: create
+
