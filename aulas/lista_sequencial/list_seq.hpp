@@ -13,7 +13,7 @@ public:
     // Libera a memória alocada para o vetor
     void destroy();
     // realoca vetor 
-    bool resize();
+    void resize();
     // imprime conteúdo da lista
     void print();
     // retorna posição do elemento ou -1
@@ -27,11 +27,11 @@ public:
     // insere elemento no final
     bool add(int elem);
     // remove elemento do final
-    bool remove();
+    void remove();
     // insere elemento na posição especificada
     void insert(int elem, int pos);
     // remove elemento na posição especificada
-    bool removeAt(int pos);
+    void removeAt(int pos);
     // insere elemento em ordem crescente
     bool addSorted(int elem);
 };
