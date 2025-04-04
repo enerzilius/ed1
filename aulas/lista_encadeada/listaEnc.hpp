@@ -25,7 +25,7 @@ private:
 public:
     LinkedList();
     ~LinkedList(); // método destrutor
-    void push_front(int key);
+    bool push_front(int key);
     bool pop_front();
     int get(int pos);
     void print();

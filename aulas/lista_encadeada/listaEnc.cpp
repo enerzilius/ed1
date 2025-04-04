@@ -5,11 +5,19 @@
 
 using namespace std;
 
-LinkedList::LinkedList() { };
+LinkedList::LinkedList() { 
+    this->head = nullptr;
+};
 
 LinkedList::~LinkedList() { };
 
-void LinkedList::push_front(int key)  { };
+bool LinkedList::push_front(int key)  { 
+    Node* node = new Node{key, nullptr};
+    if(!node) return false;
+    node->next = this->head;
+    this->head = node; 
+    return true;
+};
 
 bool LinkedList:: pop_front(){
     return true;
