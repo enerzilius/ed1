@@ -22,8 +22,8 @@ int main() {
 
     ls.removeAt(3);
     ls.print();
-    // ls.insert(0, 0);
-    // ls.print();
+    ls.insert(0, 0);
+    ls.print();
     // ls.resize();
 
     return 0;

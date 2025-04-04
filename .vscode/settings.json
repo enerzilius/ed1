@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.tcc": "cpp",
+        "compare": "cpp",
+        "optional": "cpp",
+        "type_traits": "cpp"
+    }
+}

@@ -35,12 +35,18 @@ void ListSeq::print() {
 
 // retorna posição do elemento ou -1
 int ListSeq::find(int elem) {
-  return 1;
+  for (int i = 0; i < size; i++)
+  {
+    if(elem == data[i]) return i;
+  }
+  return -1;
+  
 }
 
 // obtém o elemento na posição argumentada
 int ListSeq::get(int pos) {
-  return 1;
+  if(pos > size) return -1;
+  return data[pos];
 }
 
 // lista vazia?
@@ -75,7 +81,16 @@ void ListSeq::remove() {
 }
 
 // insere elemento na posição especificada
-void ListSeq::insert(int elem, int pos) {}
+void ListSeq::insert(int elem, int pos) {
+  int temp = 0;
+  int temp2 = 0;
+  if (isFull() || pos < 0 || pos > size) return;
+  for (int i = size; i > pos; --i) {
+    data[i] = data[i - 1];
+  }
+  data[pos] = elem;
+  ++size;
+}
 
 // remove elemento na posição especificada
 void ListSeq::removeAt(int pos) {
@@ -87,12 +102,21 @@ void ListSeq::removeAt(int pos) {
 
   for (int i = pos; i < size-1; i++)
   {
-    data[i] = data[i+1];
+    for (int i = pos; i < size-1; i++)
+    {
+      data[i] = data[i+1];
+    }
   }
   size--;
 }
 
 // insere elemento em ordem crescente
-bool ListSeq::addSorted(int elem) {
-  return true;
-}
+// bool ListSeq::addSorted(int elem) {
+//   for (int i = 0; i < size++; i++)
+//   {
+//     if(elem >= data[i]){
+//       data[i];
+//     }
+//   }
+  
+// }
