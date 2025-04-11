@@ -3,16 +3,6 @@
 
 using namespace std;
 
-struct LinkedList {
-    Node* head;
-    Node* tail;
-};
-
-struct Node {
-    int key;
-    Node* next;
-};
-
 class Node {
 public:
     int key;
@@ -29,7 +19,6 @@ public:
     bool pop_front();
     int get(int pos);
     void print();
-    int size();
     bool empty();
     void push_back(int key);
     bool pop_back();
@@ -38,7 +27,7 @@ public:
     bool remove_after(Node* pos);
     bool insert(int key, int pos);
     bool remove(int pos);
-    bool remove(int key);
+    bool removeKey(int key);
     bool insert_sorted(int key);
     int size();
     bool equals(LinkedList* list);

@@ -30,14 +30,24 @@ bool LinkedList:: pop_front(){
 };
 
 int LinkedList::get(int pos){
-    return 1;
-};
+    if (pos >= this->size()) return 0;
+    Node* node = this->head;
+    for (int i = 0; i < pos; i++)
+    {
+        node = node->next;
+    }
+    return node->key;
+}; 
 
-void LinkedList::print() { }
-
-int LinkedList::size() {
-    return 1;
-};
+void LinkedList::print() { 
+    Node* aux = this->head;
+    for (int i = 0; i < this->size() && aux; i++)
+    {
+        cout << aux->key << " ";
+        aux = aux->next;
+    }
+    cout << endl;
+}
 
 bool LinkedList::empty() { 
     return true;
@@ -50,13 +60,28 @@ bool LinkedList::pop_back() {
 };
 
 Node* LinkedList::find(int key) {
-    Node *n;
-    return n;
+    Node *node = this->head;
+    for (int i = 0; i < this->size(); i++)
+    {
+        if(node->key == key) return node;
+        node = node->next;
+    }
+    
+    return new Node{-1, nullptr};
 };
 
 bool LinkedList::insert_after(int key, Node* pos) {
-    Node* node = new Node{key, pos->next};
-    pos->next = node;
+    // if (pos >= this->size()) return false;
+    // if(pos == 0) return this->push_front(key);
+
+    // Node* aux = this->head;
+    // for (int i = 0; i < pos && aux; i++)
+    // {
+    //     aux = aux->next;
+    // }
+    // if(!aux) return false;
+    // Node* novo = new Node{key, aux->next};
+    // aux->next = novo;
     return true;
 };
 
@@ -66,21 +91,23 @@ bool LinkedList::remove_after(Node* pos){
 
 bool LinkedList::insert(int key, int pos) {
     if (pos >= this->size()) return false;
+    if(pos == 0) return this->push_front(key);
 
     Node* aux = this->head;
-    for (int i = 0; i < pos; i++)
+    for (int i = 0; i < pos-1 && aux; i++)
     {
         aux = aux->next;
     }
+    if(!aux) return false;
     Node* novo = new Node{key, aux->next};
     aux->next = novo;
     return true;
 };
 
 bool LinkedList::remove(int pos){
-
+    return true;
 };
-bool LinkedList::remove(int key) {
+bool LinkedList::removeKey(int key) {
     return true;
 };
 bool LinkedList::insert_sorted(int key) {
