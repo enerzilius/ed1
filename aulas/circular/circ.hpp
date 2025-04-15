@@ -10,13 +10,13 @@ public:
     Node* prev;
 };
 
-class DoubleLinked {
+class CircleList {
 private:
     Node* head;
     Node* tail;
 public:
-    DoubleLinked();
-    ~DoubleLinked();
+    CircleList();
+    ~CircleList(); // método destrutor
     bool push_front(int key);
     bool pop_front();
     int get(int pos);
@@ -32,7 +32,7 @@ public:
     bool remove_key(int key);
     bool insert_sorted(int key);
     int size();
-    bool equals(DoubleLinked* list);
+    bool equals(CircleList* list);
     void print_last();
     bool is_sorted();
 };

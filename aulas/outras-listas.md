@@ -8,6 +8,7 @@ head --> |3| <-> |8| <-> |2| <-> |5| -->___
 
 # Circular
 ### A simples é pouco utilizada
+- usar tail pra saber aonde está o último elemento;
 - Não precisa tratar ponteiro null
 - Dificulta colocar no ínicio da lista
 - Precisa gerenciar bem o tamanho da lista

@@ -9,7 +9,15 @@ LinkedList::LinkedList() {
     this->head = nullptr;
 };
 
-LinkedList::~LinkedList() { };
+LinkedList::~LinkedList() {
+    Node* current = head;
+    while (current != nullptr) {
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
+    head = nullptr; // optional but good practice
+}
 
 bool LinkedList::push_front(int key)  { 
     Node* node = new Node{key, nullptr};
@@ -157,6 +165,14 @@ bool LinkedList::remove_key(int key) {
     return true;
 };
 bool LinkedList::insert_sorted(int key) {
+    Node* aux = this->head;
+    while(aux->next)
+    {
+        if(aux->key <= key) break;
+        aux = aux->next;
+    }
+    Node* novo = new Node{key, aux->next};
+    aux->next = novo;
     return true;
 };
 

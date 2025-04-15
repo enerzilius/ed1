@@ -45,5 +45,13 @@ int main() {
         cout<<"Ordenado\n";
     }else cout<<"Não ordenado\n";
 
+    ls->insert_sorted(9);
+    ls->print();
+    ls->~LinkedList();
+    if(ls){
+        cout<<"Existe\n";
+        ls->print();
+    }else cout<<"Não existe\n";
+
     return 0;
 }
