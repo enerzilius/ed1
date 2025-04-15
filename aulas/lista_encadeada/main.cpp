@@ -40,5 +40,10 @@ int main() {
     ls->remove_after(ls->find(13));
     ls->print();
 
+    ls->print_last();
+    if(ls->is_sorted()){
+        cout<<"Ordenado\n";
+    }else cout<<"Não ordenado\n";
+
     return 0;
 }

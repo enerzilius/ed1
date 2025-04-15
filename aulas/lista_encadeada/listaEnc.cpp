@@ -135,11 +135,13 @@ bool LinkedList::remove(int pos){
     }
 
     if(!antes) return false;
-    antes->next = antes->next->next;
-    delete antes->next;
+    Node* temp = antes->next;
+    antes->next = temp->next;
+    delete temp;
     
     return true;
 };
+
 bool LinkedList::remove_key(int key) {
     Node* node = this->head;
     while(node){
@@ -147,8 +149,10 @@ bool LinkedList::remove_key(int key) {
         node = node->next;
     }
     if(!node) return false;
-    node->next = node->next->next;
-    delete node->next;
+
+    Node* temp = node->next;
+    node->next = temp->next;
+    delete temp;
     
     return true;
 };
@@ -178,6 +182,25 @@ bool LinkedList::equals(LinkedList* list) {
         }else{
             return false;
         }
+    }
+    return true;
+}
+
+void LinkedList::print_last(){
+    Node* node = this->head;
+    while(node->next){
+        node = node->next;
+    }
+    cout<<node->key<<endl;
+}
+
+bool LinkedList::is_sorted(){
+    Node* node = this->head;
+    int temp = node->key;
+    while(node){
+        if(node->key <= temp) return false;
+        node->next;
+        temp = node->key;
     }
     return true;
 }

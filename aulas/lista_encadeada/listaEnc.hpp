@@ -31,4 +31,6 @@ public:
     bool insert_sorted(int key);
     int size();
     bool equals(LinkedList* list);
+    void print_last();
+    bool is_sorted();
 };
