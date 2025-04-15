@@ -27,7 +27,7 @@ public:
     bool remove_after(Node* pos);
     bool insert(int key, int pos);
     bool remove(int pos);
-    bool removeKey(int key);
+    bool remove_key(int key);
     bool insert_sorted(int key);
     int size();
     bool equals(LinkedList* list);

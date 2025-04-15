@@ -50,12 +50,23 @@ void LinkedList::print() {
 }
 
 bool LinkedList::empty() { 
-    return true;
+    return this->head == nullptr;
 };
 void LinkedList::push_back(int key){
-
+    Node* node = this->head;
+    while(node->next){
+        node = node->next;
+    }
+    node->next = new Node{key, nullptr};
 };
 bool LinkedList::pop_back() {
+    Node* node = this->head;
+    while(node->next->next){
+        node = node->next;
+    }
+    if(!node) return false;
+    node->next = nullptr;   
+    delete node->next;
     return true;
 };
 
@@ -71,21 +82,30 @@ Node* LinkedList::find(int key) {
 };
 
 bool LinkedList::insert_after(int key, Node* pos) {
-    // if (pos >= this->size()) return false;
-    // if(pos == 0) return this->push_front(key);
+    if (!pos) return false;
 
-    // Node* aux = this->head;
-    // for (int i = 0; i < pos && aux; i++)
-    // {
-    //     aux = aux->next;
-    // }
-    // if(!aux) return false;
-    // Node* novo = new Node{key, aux->next};
-    // aux->next = novo;
+    Node* aux = this->head;
+    while (aux)
+    {
+        if(aux == pos) break;
+        aux = aux->next;
+    }
+    if(!aux) return false;
+    Node* novo = new Node{key, aux->next};
+    aux->next = novo;
     return true;
 };
 
 bool LinkedList::remove_after(Node* pos){
+    Node* node = this->head;
+    while(node){
+        if(node == pos) break;
+        node = node->next;
+    }
+    if(!node || !node->next) return false;
+    Node* temp = node->next;
+    node->next = temp->next;
+    delete temp;
     return true;
 };
 
@@ -105,9 +125,31 @@ bool LinkedList::insert(int key, int pos) {
 };
 
 bool LinkedList::remove(int pos){
+    if (pos >= this->size()) return false;
+    if(pos == 0) return this->pop_front();
+
+    Node* antes = this->head;
+    for (int i = 0; i < pos-1; i++)
+    {
+        antes = antes->next;
+    }
+
+    if(!antes) return false;
+    antes->next = antes->next->next;
+    delete antes->next;
+    
     return true;
 };
-bool LinkedList::removeKey(int key) {
+bool LinkedList::remove_key(int key) {
+    Node* node = this->head;
+    while(node){
+        if(node->next->key == key) break;
+        node = node->next;
+    }
+    if(!node) return false;
+    node->next = node->next->next;
+    delete node->next;
+    
     return true;
 };
 bool LinkedList::insert_sorted(int key) {
