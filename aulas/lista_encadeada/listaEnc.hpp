@@ -33,4 +33,5 @@ public:
     bool equals(LinkedList* list);
     void print_last();
     bool is_sorted();
+    LinkedList* deep_copy(LinkedList* list);
 };

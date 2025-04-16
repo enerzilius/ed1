@@ -45,13 +45,27 @@ int main() {
         cout<<"Ordenado\n";
     }else cout<<"Não ordenado\n";
 
-    ls->insert_sorted(9);
-    ls->print();
     ls->~LinkedList();
     if(ls){
         cout<<"Existe\n";
         ls->print();
     }else cout<<"Não existe\n";
+
+    LinkedList *ls2 = new LinkedList();
+    ls2->push_front(15);
+
+    ls2->insert_sorted(9);
+    ls2->print();
+    ls2->insert_sorted(20);
+    ls2->insert_sorted(13);
+    ls2->print();
+
+    if(ls2->is_sorted()){
+        cout<<"Ordenado\n";
+    }else cout<<"Não ordenado\n";
+
+    // LinkedList* sorted = ls2->deep_copy(ls2);
+    // sorted->print();
 
     return 0;
 }

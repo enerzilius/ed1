@@ -166,9 +166,9 @@ bool LinkedList::remove_key(int key) {
 };
 bool LinkedList::insert_sorted(int key) {
     Node* aux = this->head;
-    while(aux->next)
+    if(key < aux->key || aux == nullptr) return this->push_front(key);    
+    while(aux->next && key >= aux->next->key)
     {
-        if(aux->key <= key) break;
         aux = aux->next;
     }
     Node* novo = new Node{key, aux->next};
@@ -211,12 +211,22 @@ void LinkedList::print_last(){
 }
 
 bool LinkedList::is_sorted(){
+    if(!this->head) return false;
     Node* node = this->head;
-    int temp = node->key;
-    while(node){
-        if(node->key <= temp) return false;
-        node->next;
-        temp = node->key;
+    while(node->next){
+        if(node->key > node->next->key) return false;
+        node = node->next;
     }
     return true;
+}
+
+LinkedList* LinkedList::deep_copy(LinkedList* list) {
+    LinkedList* new_list = new LinkedList();
+    Node* node = list->head;
+    while(node){
+        new_list->push_back(node->key);
+        node = node->next;
+    }
+    cout<<new_list->size()<<endl;
+    return new_list;
 }
