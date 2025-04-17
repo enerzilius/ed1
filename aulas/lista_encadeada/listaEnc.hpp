@@ -34,4 +34,6 @@ public:
     void print_last();
     bool is_sorted();
     LinkedList* deep_copy(LinkedList* list);
+    LinkedList* concat(LinkedList* list2);
+    LinkedList* merge(LinkedList* list2);
 };

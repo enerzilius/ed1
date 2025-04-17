@@ -62,6 +62,11 @@ bool LinkedList::empty() {
 };
 void LinkedList::push_back(int key){
     Node* node = this->head;
+    if(!node) {
+        this->push_front(key);
+        return;
+    }
+
     while(node->next){
         node = node->next;
     }
@@ -166,7 +171,7 @@ bool LinkedList::remove_key(int key) {
 };
 bool LinkedList::insert_sorted(int key) {
     Node* aux = this->head;
-    if(key < aux->key || aux == nullptr) return this->push_front(key);    
+    if(!aux || key < aux->key) return this->push_front(key);    
     while(aux->next && key >= aux->next->key)
     {
         aux = aux->next;
@@ -227,6 +232,37 @@ LinkedList* LinkedList::deep_copy(LinkedList* list) {
         new_list->push_back(node->key);
         node = node->next;
     }
-    cout<<new_list->size()<<endl;
     return new_list;
 }
+
+LinkedList* LinkedList::concat(LinkedList* list2) {
+    LinkedList* concatted = new LinkedList();
+    Node* node = this->head;
+    while(node){
+        concatted->push_back(node->key);
+        node = node->next;
+    }
+    node = list2->head;
+    while(node){
+        concatted->push_back(node->key);
+        node = node->next;
+    }
+    return concatted;
+}
+
+LinkedList* LinkedList::merge(LinkedList* list2) {
+    LinkedList* concatted = new LinkedList();
+    Node* node = this->head;
+    while(node){
+        concatted->insert_sorted(node->key);
+        node = node->next;
+    }
+    node = list2->head;
+    while(node){
+        concatted->insert_sorted(node->key);
+        node = node->next;
+    }
+    return concatted;
+}
+
+
