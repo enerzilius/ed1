@@ -25,7 +25,9 @@ DoubleLinked::~DoubleLinked() {
 bool DoubleLinked::push_front(int key)  { 
     Node* node = new Node{key, nullptr, nullptr};
     if(!node) return false;
-    if(!head)
+    if(!head) {
+        
+    }
 
     node->next = this->head;
     if(node->next) node->next->prev = node;
@@ -68,11 +70,11 @@ bool DoubleLinked::empty() {
     return this->head == nullptr;
 };
 void DoubleLinked::push_back(int key){
-    Node* node = this->head;
-    while(node->next){
-        node = node->next;
-    }
-    node->next = new Node{key, nullptr};
+    if(!this->tail) return;
+
+    Node* novo = new Node{key, nullptr, this->tail};
+    this->tail->next = novo;
+    this->tail = novo;
 };
 bool DoubleLinked::pop_back() {
     Node* node = this->head;
@@ -100,6 +102,7 @@ bool DoubleLinked::insert_after(int key, Node* pos) {
     if (!pos) return false;
 
     Node* aux = this->head;
+    pos->next = aux;
     while (aux)
     {
         if(aux == pos) break;
@@ -133,8 +136,12 @@ bool DoubleLinked::insert(int key, int pos) {
     {
         aux = aux->next;
     }
-    if(!aux) return false;
-    Node* novo = new Node{key, aux->next};
+    if(!aux) {
+        this->push_back(key);
+        return;
+    }
+    Node* novo = new Node{key, aux->next, aux};
+    aux->next->prev = novo;
     aux->next = novo;
     return true;
 };
