@@ -22,9 +22,29 @@ int main() {
 
     ls.removeAt(3);
     ls.print();
-    ls.insert(0, 0);
+    ls.insert(0, 1);
     ls.print();
-    // ls.resize();
+    if (ls.isFull()) ls.resize();
+    ls.addSorted(3);
+    ls.print();
+    cout<<ls.list_get_available()<<endl;
+
+    ls.list_clear();
+    ls.print();
+    cout<<ls.list_get_available()<<endl;
+
+    ls.addSorted(3);
+    ls.addSorted(0);
+    ls.addSorted(4);
+    ls.addSorted(29);
+    ls.addSorted(21);
+    ls.list_remove_last(1);
+    ls.print();
+    ls.list_print_reverse();
+
+    int* arr = new int[2]{1, 2};
+    ls.list_add(2, arr);
+    ls.print();
 
     return 0;
 }

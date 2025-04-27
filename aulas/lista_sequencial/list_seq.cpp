@@ -111,12 +111,44 @@ void ListSeq::removeAt(int pos) {
 }
 
 // insere elemento em ordem crescente
-// bool ListSeq::addSorted(int elem) {
-//   for (int i = 0; i < size++; i++)
-//   {
-//     if(elem >= data[i]){
-//       data[i];
-//     }
-//   }
+bool ListSeq::addSorted(int elem) {
+  if(isFull()) return false;
+  int i;
+  for (i = size; i > 0 && data[i-1] >= elem; --i) {
+    data[i] = data[i - 1];
+  }
+  data[i] = elem;
+  size++;
+  return true;
   
-// }
+}
+
+int ListSeq::list_get_available() {
+  return capacity - size;
+}
+
+void ListSeq::list_clear() {
+  size = 0;
+}
+
+void ListSeq::list_remove_last(int n) {
+  if(n > size) return;
+  size -= n;
+}
+
+void ListSeq::list_print_reverse() {
+  for (int i = size-1; i>= 0; i--)
+  {
+    cout << data[i] << " ";
+  }
+  cout << endl;
+}
+
+void ListSeq::list_add(int n, int* vet) {
+  if (size + n > capacity) return;
+
+  for (int i = 0; i < n; i++)
+  {
+    this->add(vet[i]);
+  }
+}
