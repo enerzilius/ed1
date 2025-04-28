@@ -42,8 +42,31 @@ int main() {
     ls.print();
     ls.list_print_reverse();
 
-    int* arr = new int[2]{1, 2};
+    int* arr = new int[2]{22, 23};
     ls.list_add(2, arr);
+    ls.print();
+
+    cout<<(ls.list_is_sorted()?"true":"false")<<endl;
+
+    ls.list_reverse();
+    ls.print();
+
+    ListSeq* ls2 = new ListSeq(5);
+    ls2->add(12);
+
+    cout<<(ls.list_equal(ls2)?"true":"false")<<endl;
+
+    ListSeq* ls3 = ls.list_from_vector(2, arr);
+    ls3->print();
+
+    ListSeq* ls4 = ls.list_copy();
+    ls.print();
+    ls4->print();
+
+    ls.resize();
+    ls.resize();
+    ls.resize();
+    cout << ls.list_concat(ls4) <<endl;
     ls.print();
 
     return 0;

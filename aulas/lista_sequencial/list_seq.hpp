@@ -39,4 +39,10 @@ public:
     void list_remove_last(int n);
     void list_print_reverse();
     void list_add(int n, int* vet);
+    bool list_is_sorted();
+    void list_reverse();
+    int list_equal(ListSeq* outra);
+    ListSeq* list_from_vector(int n, int* vet);
+    ListSeq* list_copy();
+    int list_concat(ListSeq* list2);
 };
