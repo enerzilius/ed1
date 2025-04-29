@@ -20,6 +20,7 @@ public:
     bool push_front(int key);
     bool pop_front();
     int get(int pos);
+    Node* getNode(int pos);
     void print();
     bool empty();
     void push_back(int key);
