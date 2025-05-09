@@ -24,9 +24,9 @@ DoubleLinked::~DoubleLinked() {
 
 bool DoubleLinked::push_front(int key)  { 
     Node* node = new Node{key, nullptr, nullptr};
-    if(!node) return false;
     if(!head) {
-        
+        this->head = node;
+        return true;
     }
 
     node->next = this->head;
@@ -138,7 +138,7 @@ bool DoubleLinked::insert(int key, int pos) {
     }
     if(!aux) {
         this->push_back(key);
-        return;
+        return true;
     }
     Node* novo = new Node{key, aux->next, aux};
     aux->next->prev = novo;
@@ -191,7 +191,6 @@ int DoubleLinked::size() {
         n++;
     }
     return n;
-    
 }
 
 bool DoubleLinked::equals(DoubleLinked* list) {

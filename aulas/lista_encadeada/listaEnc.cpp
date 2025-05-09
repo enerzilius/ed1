@@ -133,6 +133,7 @@ bool LinkedList::insert(int key, int pos) {
     }
     if(!aux) return false;
     Node* novo = new Node{key, aux->next};
+    if(aux->next) novo->next = aux->next; 
     aux->next = novo;
     return true;
 };

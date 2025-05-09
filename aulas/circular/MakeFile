@@ -1,0 +1,3 @@
+	g++ -c circ.cpp
+	g++ -c main.cpp
+	g++ circ.o main.o -o main
