@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 #include <list>
 #include <stack>
@@ -75,12 +76,83 @@ vector<string> vectorize_expression(string expression){
 }
 
 float calc_posfix(string expression){
+    stack<float> stack;
 
+    float a = 0;
+    float b = 0;
+
+    vector<string> vec = vectorize_expression(expression);
+    for(string e : vec){
+        if(isdigit(e[0])) stack.push(stof(e));
+        else{
+            switch (e[0])
+            {
+                case '+':
+                    a = stack.top();
+                    stack.pop();
+                    b = stack.top();
+                    stack.pop();
+                    stack.push(a + b);
+                    break;
+                case '-':
+                    a = stack.top();
+                    stack.pop();
+                    b = stack.top();
+                    stack.pop();
+                    stack.push(a - b);
+                    break;
+                case '*':
+                    a = stack.top();
+                    stack.pop();
+                    b = stack.top();
+                    stack.pop();
+                    stack.push(a * b);
+                    break;
+                case '/':
+                    a = stack.top();
+                    stack.pop();
+                    b = stack.top();
+                    stack.pop();
+                    stack.push(a / b);
+                    break;
+            default:
+                break;
+            }
+        }
+    }
+    return stack.top();
 }
 
-bool check_posfix(string expression);
+bool check_posfix(string expression){
+    stack<float> stack;
 
-float calc_infix(string expression);
+    vector<string> vec = vectorize_expression(expression);
+    for(string e : vec){
+        if(isdigit(e[0])){
+            stack.push(stof(e));
+            continue;
+        }
+        if(stack.size() < 2){
+            return false;
+        }
+        stack.pop();
+    }
+    cout<<stack.top()<<endl;
+    return stack.size() == 1;
+}
+
+float calc_infix(string expression){
+    vector<string> vec = vectorize_expression(expression);
+    stack<float> numbers;
+    stack<char> operadores;
+
+    for(string e : vec){
+        if(isdigit(e[0])){
+            numbers.push(stof(e));
+        }
+        if(e[0] == '(') operadores.push(e[0]);
+    }
+}
 
 string posfix_to_infix(string expression);
 
@@ -108,6 +180,16 @@ int main() {
         cout<<e<<", ";
     }
     cout<<" ]"<<endl;
+
+    cout<<check_brackets("{[()]}")<<endl;
+
+    cout<<calc_posfix("12 20 + 0.5 *")<<endl;
+
+    cout<<check_posfix("12 20 + 0.5 *")<<endl;
+
+    cout<<calc_infix("( ( ( 6 + 9 ) / 3 ) * ( 6 - 4) )")<<endl;
+
+
     
     return 0;
 }
