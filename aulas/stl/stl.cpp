@@ -141,18 +141,100 @@ bool check_posfix(string expression){
     return stack.size() == 1;
 }
 
+float calc_op(char op, float a, float b){
+    switch (op) {
+        case '+': return a + b;
+        case '-': return a - b;
+        case '*': return a * b;
+        case '/': return a / b;
+        default: throw runtime_error("Operador inválido");
+    }
+}
+
 float calc_infix(string expression){
     vector<string> vec = vectorize_expression(expression);
-    stack<float> numbers;
+    stack<float> operandos;
     stack<char> operadores;
+
+    int a = 0;
+    int b = 0;
 
     for(string e : vec){
         if(isdigit(e[0])){
-            numbers.push(stof(e));
+            operandos.push(stof(e));
+            continue;   
         }
-        if(e[0] == '(') operadores.push(e[0]);
+
+        switch (e[0])
+        {
+            case '(':
+                operadores.push(e[0]);
+                break;
+            case '+':
+                if(operadores.top() == '('){
+                    operadores.push(e[0]);
+                    break;
+                }
+                a = operandos.top();
+                operandos.pop();
+                b = operandos.top();
+                operandos.pop();
+                operandos.push(a + b);
+                operadores.pop();
+                break;
+            case '-':
+                if(operadores.top() == '('){
+                    operadores.push(e[0]);
+                    break;
+                }
+                a = operandos.top();
+                operandos.pop();
+                b = operandos.top();
+                operandos.pop();
+                operandos.push(a - b);
+                operadores.pop();
+                break;
+            case '*':
+                if(operadores.top() == '('){
+                    operadores.push(e[0]);
+                    break;
+                }
+                a = operandos.top();
+                operandos.pop();
+                b = operandos.top();
+                operandos.pop();
+                operandos.push(a * b);
+                operadores.pop();
+                break;
+            case '/':
+                if(operadores.top() == '('){
+                    operadores.push(e[0]);
+                    break;
+                }
+                a = operandos.top();
+                operandos.pop();
+                b = operandos.top();
+                operandos.pop();
+                operandos.push(a / b);
+                operadores.pop();
+                break;
+            case ')':
+                while (!operadores.empty() && operadores.top() != '(') {
+                    char op = operadores.top(); 
+                    operadores.pop();
+                    a = operandos.top();
+                    operandos.pop();
+                    b = operandos.top();
+                    operandos.pop();
+                    operandos.push(calc_op(op, a, b));
+                }
+                break;
+            default:
+                break;
+        }   
     }
-}
+    return operandos.top();
+}   
 
 string posfix_to_infix(string expression);
 
