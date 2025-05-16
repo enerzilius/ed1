@@ -147,8 +147,14 @@ float calc_op(char op, float a, float b){
         case '-': return a - b;
         case '*': return a * b;
         case '/': return a / b;
-        default: throw runtime_error("Operador inválido");
+        default: return 0;
     }
+}
+
+int precedence(char op) {
+    if (op == '+' || op == '-') return 1;
+    if (op == '*' || op == '/') return 2;
+    return 0;
 }
 
 float calc_infix(string expression){
@@ -156,14 +162,17 @@ float calc_infix(string expression){
     stack<float> operandos;
     stack<char> operadores;
 
+
     int a = 0;
     int b = 0;
 
     for(string e : vec){
-        if(isdigit(e[0])){
-            operandos.push(stof(e));
-            continue;   
+        string num = "";    
+        for (char c : e)
+        {
+            if(isdigit(c)) num += c;
         }
+        if(num != "") operandos.push(stof(num)); 
 
         switch (e[0])
         {
@@ -171,31 +180,31 @@ float calc_infix(string expression){
                 operadores.push(e[0]);
                 break;
             case '+':
-                if(operadores.top() == '('){
+                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
                     operadores.push(e[0]);
                     break;
                 }
-                a = operandos.top();
-                operandos.pop();
                 b = operandos.top();
+                operandos.pop();
+                a = operandos.top();
                 operandos.pop();
                 operandos.push(a + b);
                 operadores.pop();
                 break;
             case '-':
-                if(operadores.top() == '('){
+                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
                     operadores.push(e[0]);
                     break;
                 }
-                a = operandos.top();
-                operandos.pop();
                 b = operandos.top();
+                operandos.pop();
+                a = operandos.top();
                 operandos.pop();
                 operandos.push(a - b);
                 operadores.pop();
                 break;
             case '*':
-                if(operadores.top() == '('){
+                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
                     operadores.push(e[0]);
                     break;
                 }
@@ -207,7 +216,7 @@ float calc_infix(string expression){
                 operadores.pop();
                 break;
             case '/':
-                if(operadores.top() == '('){
+                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
                     operadores.push(e[0]);
                     break;
                 }
@@ -219,7 +228,7 @@ float calc_infix(string expression){
                 operadores.pop();
                 break;
             case ')':
-                while (!operadores.empty() && operadores.top() != '(') {
+                while (operadores.top() != '(') {
                     char op = operadores.top(); 
                     operadores.pop();
                     a = operandos.top();
@@ -228,11 +237,30 @@ float calc_infix(string expression){
                     operandos.pop();
                     operandos.push(calc_op(op, a, b));
                 }
+                operadores.pop();
                 break;
             default:
                 break;
-        }   
+        }
+           
     }
+    // for (char c : operadores)
+    // {
+    //     cout
+    // }
+    while (operadores.size() != 1) {
+        char op = operadores.top(); operadores.pop();
+        float b = operandos.top(); operandos.pop();
+        float a = operandos.top(); operandos.pop();
+        operandos.push(calc_op(op, a, b));
+    }
+
+    cout<<operandos.top()<<endl;
+
+    printf("%ld ", operandos.size());
+    printf("%ld" , operadores.size());
+    printf("%c ", operadores.top());
+    
     return operandos.top();
 }   
 
