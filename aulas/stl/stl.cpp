@@ -242,12 +242,9 @@ float calc_infix(string expression){
             default:
                 break;
         }
-           
+        cout<<operadores.top()<<endl;
+        cout<<operandos.top()<<endl;
     }
-    // for (char c : operadores)
-    // {
-    //     cout
-    // }
     while (operadores.size() != 1) {
         char op = operadores.top(); operadores.pop();
         float b = operandos.top(); operandos.pop();
