@@ -162,25 +162,26 @@ float calc_infix(string expression){
     stack<float> operandos;
     stack<char> operadores;
 
-
-    int a = 0;
-    int b = 0;
+    float a = 0;
+    float b = 0;
 
     for(string e : vec){
         string num = "";    
-        for (char c : e)
-        {
+        for (char c : e){
             if(isdigit(c)) num += c;
         }
-        if(num != "") operandos.push(stof(num)); 
+        
+        if(num != "") {
+            operandos.push(stof(num));
+            continue;
+        }
 
-        switch (e[0])
-        {
+        switch (e[0]){
             case '(':
                 operadores.push(e[0]);
                 break;
             case '+':
-                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
+                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
@@ -190,9 +191,10 @@ float calc_infix(string expression){
                 operandos.pop();
                 operandos.push(a + b);
                 operadores.pop();
+                operadores.push(e[0]);
                 break;
             case '-':
-                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
+                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
@@ -202,66 +204,95 @@ float calc_infix(string expression){
                 operandos.pop();
                 operandos.push(a - b);
                 operadores.pop();
+                operadores.push(e[0]);
                 break;
             case '*':
-                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
+                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
-                a = operandos.top();
-                operandos.pop();
                 b = operandos.top();
+                operandos.pop();
+                a = operandos.top();
                 operandos.pop();
                 operandos.push(a * b);
                 operadores.pop();
+                operadores.push(e[0]);
                 break;
             case '/':
-                if(operadores.top() == '(' || precedence(operadores.top()) >= precedence(e[0])){
+                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
-                a = operandos.top();
-                operandos.pop();
                 b = operandos.top();
+                operandos.pop();
+                a = operandos.top();
                 operandos.pop();
                 operandos.push(a / b);
                 operadores.pop();
+                operadores.push(e[0]);
                 break;
             case ')':
-                while (operadores.top() != '(') {
+                while (!operadores.empty() && operadores.top() != '(') {
                     char op = operadores.top(); 
                     operadores.pop();
-                    a = operandos.top();
-                    operandos.pop();
                     b = operandos.top();
                     operandos.pop();
-                    operandos.push(calc_op(op, a, b));
+                    a = operandos.top();
+                    operandos.pop();
+                    operandos.push(calc_op(op, b, a));
                 }
-                operadores.pop();
+                if (!operadores.empty()) {
+                    operadores.pop(); // Remove o '('
+                }
                 break;
             default:
                 break;
         }
-        cout<<operadores.top()<<endl;
-        cout<<operandos.top()<<endl;
     }
-    while (operadores.size() != 1) {
-        char op = operadores.top(); operadores.pop();
-        float b = operandos.top(); operandos.pop();
-        float a = operandos.top(); operandos.pop();
-        operandos.push(calc_op(op, a, b));
-    }
-
-    cout<<operandos.top()<<endl;
-
-    printf("%ld ", operandos.size());
-    printf("%ld" , operadores.size());
-    printf("%c ", operadores.top());
     
-    return operandos.top();
-}   
+    while (!operadores.empty()) {
+        char op = operadores.top(); 
+        operadores.pop();
+        if (operandos.size() >= 2) {
+            b = operandos.top(); 
+            operandos.pop();
+            a = operandos.top(); 
+            operandos.pop();
+            operandos.push(calc_op(op, b, a));
+        }
+    }
 
-string posfix_to_infix(string expression);
+    if (!operandos.empty()) {
+        return operandos.top();
+    }
+    
+    return 0; // Retorna 0 se não houver resultado
+}
+
+string posfix_to_infix(string expression){
+    stack<string> infix;
+
+    vector<string> vexpression = vectorize_expression(expression);
+
+    for(string e : vexpression){
+        string num = "";
+        for (char c : e)
+        {
+            if(isdigit(c)) num += c;
+        }
+        if(num != "") infix.push(num); 
+        else{
+            string b = infix.top();
+            infix.pop();
+            string a = infix.top();
+            infix.pop();
+            string new_exp = "(" + a + " " + e + " " + b + ")";
+            infix.push(new_exp);
+        }
+    }
+    return infix.top();
+}
 
 int main() {
     int v[4] = {1,2,3,4};
@@ -295,6 +326,8 @@ int main() {
     cout<<check_posfix("12 20 + 0.5 *")<<endl;
 
     cout<<calc_infix("( ( ( 6 + 9 ) / 3 ) * ( 6 - 4) )")<<endl;
+
+    cout<<posfix_to_infix("6 9 + 3 / 6 4 - *")<<endl;
 
 
     
