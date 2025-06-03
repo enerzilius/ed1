@@ -18,11 +18,11 @@ void print_txt(char* txt, int num){
 
 void count50(int current) {
     if (current > 50) {
-        return; // Caso base: para quando chegar a 51
+        return; 
     }
     
     cout << current << " ";
-    count50(current + 1); // Chamada recursiva incrementando
+    count50(current + 1);
 }
 
 void count(int num) {
@@ -111,6 +111,51 @@ void print_rev(forward_list<int> &lst, forward_list<int>::iterator &it) {
     cout << current_value << " ";
 }
 
+void remove_all(vector<int> &vec) {
+    if (vec.empty()) {
+        cout << "Vector vazio." << endl;
+        return;
+    }
+    
+    cout << "Removendo elemento: " << vec.back() << " (tamanho atual: " << vec.size() << ")" << endl;
+    
+    // Remove o último elemento (mais eficiente para vector)
+    vec.pop_back();
+    
+    // Chamada recursiva para continuar removendo
+    remove_all(vec);
+}
+
+void print_stack(stack<int> &stk) {
+    if (stk.empty()) {
+        return;
+    }
+    
+    int top_element = stk.top();
+    stk.pop();
+
+    print_stack(stk);
+
+    cout << top_element << " ";
+    stk.push(top_element);
+}
+
+void push_to(stack<int> &stk1, stack<int> &stk2) {
+    if (stk1.empty()) {
+        return;
+    }
+
+    int top_element = stk1.top();
+    
+    stk1.pop();
+    
+    stk2.push(top_element);
+    cout << "Empilhando " << top_element << " na stack2" << endl;
+    push_to(stk1, stk2);
+
+    
+}
+
 int main(){
     print_txt("Omori", 10);
 
@@ -131,6 +176,22 @@ int main(){
     forward_list<int>::iterator fit = fl.begin();
     cout<<"Lista encadeada reversa: ";
     print_rev(fl, fit);
+    cout<<endl;
+
+    remove_all(vec);
+
+    stack<int> stk;
+    stk.push(1);
+    stk.push(2);
+    stk.push(3);
+    cout<<"Pilha: ";
+    print_stack(stk);
+    cout<<endl;
+
+    stack<int> stk2;
+    push_to(stk, stk2);
+    cout<<"Pilha Invertida: ";
+    print_stack(stk2);
     cout<<endl;
 
     return 0;
