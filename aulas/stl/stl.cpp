@@ -181,7 +181,7 @@ float calc_infix(string expression){
                 operadores.push(e[0]);
                 break;
             case '+':
-                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
+                if(!operadores.empty() || operadores.top() != '(' || precedence(e[0]) < precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
@@ -194,7 +194,7 @@ float calc_infix(string expression){
                 operadores.push(e[0]);
                 break;
             case '-':
-                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
+                if(!operadores.empty() || operadores.top() != '(' || precedence(e[0]) < precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
@@ -207,7 +207,7 @@ float calc_infix(string expression){
                 operadores.push(e[0]);
                 break;
             case '*':
-                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
+                if(!operadores.empty() || operadores.top() != '(' || precedence(e[0]) < precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
@@ -220,7 +220,7 @@ float calc_infix(string expression){
                 operadores.push(e[0]);
                 break;
             case '/':
-                if(operadores.empty() || operadores.top() == '(' || precedence(e[0]) > precedence(operadores.top())){
+                if(!operadores.empty() || operadores.top() != '(' || precedence(e[0]) < precedence(operadores.top())){
                     operadores.push(e[0]);
                     break;
                 }
@@ -233,7 +233,7 @@ float calc_infix(string expression){
                 operadores.push(e[0]);
                 break;
             case ')':
-                while (!operadores.empty() && operadores.top() != '(') {
+                while (!operadores.empty()) {
                     char op = operadores.top(); 
                     operadores.pop();
                     b = operandos.top();
@@ -325,7 +325,7 @@ int main() {
 
     cout<<check_posfix("12 20 + 0.5 *")<<endl;
 
-    cout<<calc_infix("( ( ( 6 + 9 ) / 3 ) * ( 6 - 4) )")<<endl;
+    cout<<calc_infix("( ( ( 6 + 9 ) / 3 ) * ( 6 - 4 ) )")<<endl;
 
     cout<<posfix_to_infix("6 9 + 3 / 6 4 - *")<<endl;
 
