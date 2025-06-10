@@ -57,6 +57,10 @@
         "stop_token": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "stack": "cpp",
+        "format": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     }
 }
