@@ -156,6 +156,22 @@ void push_to(stack<int> &stk1, stack<int> &stk2) {
     
 }
 
+void copyVector(vector<int> &vec1, int idx, vector<int> &vec2){
+    if (idx >= vec1.size()) return;
+    
+    vec2.push_back(vec1[idx]);
+    cout << "Copiando elemento "<<vec1[idx]<<" na posição " << idx<<endl;
+    copyVector(vec1, idx + 1, vec2);
+}
+
+void copy(list<int> &list1, list<int>::iterator &it, list<int> &list2) {
+    if (it == list1.end()) return; 
+    
+    list2.push_back(*it);
+    ++it;
+    copy(list1, it, list2);
+}
+
 int main(){
     print_txt("Omori", 10);
 
@@ -194,5 +210,18 @@ int main(){
     print_stack(stk2);
     cout<<endl;
 
+    vector<int> vec2 = {1,2,3,4,5};
+    vector<int> vec3;
+
+    copyVector(vec2, 0, vec3);
+    print_vec(vec3, 0);
+
+    list<int> ls2;
+    list<int>::iterator it2 = lst.begin();
+ 
+    copy(lst, it2, ls2);
+    it2 = ls2.begin();
+    print_list(ls2, it2);
+    
     return 0;
 }
