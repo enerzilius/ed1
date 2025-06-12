@@ -61,6 +61,8 @@
         "stack": "cpp",
         "format": "cpp",
         "xstring": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "ranges": "cpp",
+        "span": "cpp"
     }
 }
