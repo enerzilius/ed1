@@ -72,8 +72,8 @@ void print_even(vector<int>& vec, int idx){
 }     
 
 void print_list(list<int> &lst, list<int>::iterator &it) {
-    if(*it == lst.back()){
-        cout<<*it<<endl;
+    if(it == lst.end()){
+        cout<<endl;
         return;
     } 
 
@@ -82,9 +82,7 @@ void print_list(list<int> &lst, list<int>::iterator &it) {
 }
 
 void print_rev(forward_list<int> &lst, forward_list<int>::iterator &it) {
-    if(it == lst.end()) {
-        return;
-    }
+    if(it == lst.end()) return;
     
     int curr = *it;
     
@@ -93,20 +91,44 @@ void print_rev(forward_list<int> &lst, forward_list<int>::iterator &it) {
 }
 
 void remove_all(vector<int> &vec) {
+    if (vec.size() <= 0) return;
+    vec.pop_back();
+    remove_all(vec);
 }
 
 void print_stack(stack<int> &stk) {
+    if(stk.empty()) return;
+
+    int curr = stk.top();
+    stk.pop();
+
+    print_stack(stk);
+    cout<<curr<<" ";
+    stk.push(curr);
 }
 
 void push_to(stack<int> &stk1, stack<int> &stk2) {
+    if(stk1.empty()) return;
 
+    stk2.push(stk1.top());
+    stk1.pop();
+    push_to(stk1, stk2);
     
 }
 
-void copyVector(vector<int> &vec1, int idx, vector<int> &vec2){
+void copy_vector(vector<int> &vec1, int idx, vector<int> &vec2){
+    if(idx >= vec1.size()) return;
+
+    vec2.push_back(vec1[idx]);
+    copy_vector(vec1, ++idx, vec2);
 }
 
 void copy(list<int> &list1, list<int>::iterator &it, list<int> &list2) {
+    if(it == list1.end()) return;
+
+    int curr = *it;
+    copy(list1, ++it, list2);
+    list2.push_front(curr);
 }
 
 int main(){
@@ -142,34 +164,37 @@ int main(){
     print_rev(fl, fit);
     cout<<endl;
 
-    // remove_all(vec);
+    cout<<"Vetor limpo: ";
+    remove_all(vec);
+    print_vec(vec, 0);
 
-    // stack<int> stk;
-    // stk.push(1);
-    // stk.push(2);
-    // stk.push(3);
-    // cout<<"Pilha: ";
-    // print_stack(stk);
-    // cout<<endl;
+    stack<int> stk;
+    stk.push(1);
+    stk.push(2);
+    stk.push(3);
+    cout<<"Pilha: ";
+    print_stack(stk);
+    cout<<endl;
 
-    // stack<int> stk2;
-    // push_to(stk, stk2);
-    // cout<<"Pilha Invertida: ";
-    // print_stack(stk2);
-    // cout<<endl;
+    stack<int> stk2;
+    push_to(stk, stk2);
+    cout<<"Pilha Invertida: ";
+    print_stack(stk2);
+    cout<<endl;
+    
+    vector<int> vec2 = {1,2,3,4,5};
+    vector<int> vec3;
+    cout<<"Vetor copiado: ";
+    copy_vector(vec2, 0, vec3);
+    print_vec(vec3, 0);
 
-    // vector<int> vec2 = {1,2,3,4,5};
-    // vector<int> vec3;
-
-    // copyVector(vec2, 0, vec3);
-    // print_vec(vec3, 0);
-
-    // list<int> ls2;
-    // list<int>::iterator it2 = lst.begin();
+    list<int> ls2;
+    list<int>::iterator it2 = lst.begin();
  
-    // copy(lst, it2, ls2);
-    // it2 = ls2.begin();
-    // print_list(ls2, it2);
+    copy(lst, it2, ls2);
+    it2 = ls2.begin();
+    cout<<"Lista copiada: ";
+    print_list(ls2, it2);
     
     return 0;
 }
