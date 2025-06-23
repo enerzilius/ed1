@@ -42,7 +42,7 @@ void backtracking(vector<int> vec) {
             for (int k = 0; k <= offset; k++) {
                 cout << vec[j + k] << " ";
             }
-            cout << endl;
+            cout << endl; 
         }
         offset += 1;
     }
