@@ -65,6 +65,7 @@
         "ranges": "cpp",
         "span": "cpp",
         "xmemory": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "xiosbase": "cpp"
     }
 }
