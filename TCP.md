@@ -21,14 +21,14 @@
 - *Sequence Number*:
   - Determina a sequência dos pacotes
 - *Acknowledgement Number*:
-  - Compara com o *Sequence Number para ter certeza que a ordem correta foi mantida
+  - Confirmar que uma informação foi recebida
+  - Ativo quando o bit Ack for 1
 - **Flags**
   - **Three Way Handshake**
   - *Syn*:
     - Pede para abrir uma conexão, carrega a seq
   - *Ack*:
     - Confirma o Syn
-    - Ack+Syn
   - *Ack*:
     - Confirma do outro lado, já que é full-duplex
   - Fin: 
@@ -60,7 +60,7 @@ sequenceDiagram
 - Se der 50ms e A não receber um Ack, ele manda o pacote novamente
 - *Window Size*:
   - Determina o tamanho da janela de processamento
-    - O quanto cabe no buffer
+    - O quanto pode receber
 - *Checksum*:
   - Source Port até TCP Header Length
 - Estados:
