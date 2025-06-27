@@ -24,38 +24,91 @@ int MDC(int a, int b){
     return MDC(b, a%b);
 }
 
-// void string_permutations(string str, int sub_len, int pos){
-//     // if(pos == str.length()-1) return;
-//     // for (int i = 0; i < str.length()-1; i++)
-//     // {
-//     //     for (int j = i; i < str.length()-1; i++)
-//     //     {
-//     //         swap(str[j], str[j+1]);
-//     //     }
-//     // }
-// }
-
-void backtracking(vector<int> vec) {
-    int offset = 0;
-    for (int i = 0; i < vec.size() - 1; i++) {
-        for (int j = i; j < vec.size() - offset; j++) {
-            for (int k = 0; k <= offset; k++) {
-                cout << vec[j + k] << " ";
-            }
-            cout << endl; 
-        }
-        offset += 1;
-    }
+void permute(string& s, int n){
+    if(n <= 0) return;
+    cout<<s<<endl;
+    swap(s[n], s[n-1]);
+    return permute(s, n-1);
 }
 
+void string_permutation(string str, int n){
+    if(n >= str.size()) return;
+    permute(str, str.size()-1);
+    return string_permutation(str, n+1);
+}
+
+// void print_conjunto(vector<int>, int n, int i){
+//     if(n)
+    
+//     return
+// }
+
+// void backtracking(vector<int> vec, int n) {
+//     if(n == vec.size()) return;
+    
+//     cout<<"{ ";
+//     print_conjunto(vec, n, 0);
+//     cout<<" }, ";
+
+// }
+
+int binary(vector<int> vec, int target, int left, int right){
+    if(left > right) return -1;
+
+    int mid = left+(right-left)/2;
+
+    if(vec[mid] == target) return mid;
+
+    if(vec[mid] < target) return binary(vec, target, mid+1, right);
+    else return binary(vec, target, left, mid-1); 
+}
+
+int sum_alg(int n){
+    if(n == 0) return 0; 
+
+    return n%10 + sum_alg(n/10);
+}
+
+void invert_string(string& s, int left, int right){
+    if(left >= right) return;
+
+    swap(s[left], s[right]);
+    return invert_string(s, ++left, --right);
+}
+
+int combinacao(int n, int k){
+    return factorial(n)/(factorial(n-k)*factorial(k));
+}
+
+bool palyndrome_str(string s, int left, int right){
+    if(left >= right) return true;
+    if(s[left] != s[right]) return false;
+    return palyndrome_str(s, ++left, --right);
+}
 
 int main(){
-    cout<<exponential(3,-3)<<endl;
+    cout<<exponential(3,3)<<endl;
+    cout<<"--------------"<<endl;
     cout<<MDC(16,8)<<endl;
-    string txt = "aaa";
-    // string_permutations(txt, 0, 0); 
+    cout<<"--------------"<<endl;
+    string txt = "aed";
+    string_permutation(txt, 0); 
+    cout<<"--------------"<<endl;
     vector<int> vec = {1, 2, 3};
-    backtracking(vec);
+    //backtracking(vec);
+    cout<<"--------------"<<endl;
+    vector<int> v = { 1, 2, 3, 4, 5, 10, 11, 34, 37};
+    cout<<binary(v, 4, 0, v.size()-1)<<endl;
+    cout<<"--------------"<<endl;
+    cout<<sum_alg(123455)<<endl;
+    cout<<"--------------"<<endl;
+    invert_string(txt, 0, txt.size()-1);
+    cout<<txt<<endl;
+    cout<<"--------------"<<endl;
+    cout<<combinacao(4, 2)<<endl;
+    cout<<"--------------"<<endl;
+    string s = "araraa";
+    cout<<palyndrome_str(s, 0, s.size()-1)<<endl;
 
     return 0;
 }
