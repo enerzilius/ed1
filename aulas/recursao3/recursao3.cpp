@@ -37,20 +37,25 @@ void string_permutation(string str, int n){
     return string_permutation(str, n+1);
 }
 
-// void print_conjunto(vector<int>, int n, int i){
-//     if(n)
-    
-//     return
-// }
+void print_conjunto(vector<int> subset, int n){
+    if(n == subset.size()) return;
+    cout<<subset[n]<<" ";
+    return print_conjunto(subset, ++n);
+}
 
-// void backtracking(vector<int> vec, int n) {
-//     if(n == vec.size()) return;
-    
-//     cout<<"{ ";
-//     print_conjunto(vec, n, 0);
-//     cout<<" }, ";
+void backtracking(vector<int> vec, vector<int> sub, int n) {
+    if(n == vec.size()){
+        cout<<"{ ";
+        print_conjunto(sub, 0);
+        cout<<"} ";
 
-// }
+        return;
+    } 
+    
+    backtracking(vec, sub, n+1);
+    sub.push_back(vec[n]);
+    backtracking(vec, sub, n+1);
+}
 
 int binary(vector<int> vec, int target, int left, int right){
     if(left > right) return -1;
@@ -95,7 +100,9 @@ int main(){
     string_permutation(txt, 0); 
     cout<<"--------------"<<endl;
     vector<int> vec = {1, 2, 3};
-    //backtracking(vec);
+    vector<int> aux;
+    backtracking(vec, aux, 0);
+    cout<<endl;
     cout<<"--------------"<<endl;
     vector<int> v = { 1, 2, 3, 4, 5, 10, 11, 34, 37};
     cout<<binary(v, 4, 0, v.size()-1)<<endl;
