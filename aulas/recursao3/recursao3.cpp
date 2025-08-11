@@ -16,7 +16,7 @@ float exponential(int n, int exp){
     if(exp == 0) return 1;
 
     if(exp > 0) return n*exponential(n, exp-1);
-    return 1/(n*exponential(n, exp*(-1)-1));
+    return 1/(n*exponential(n, -exp-1));
 }
 
 int MDC(int a, int b){
@@ -92,7 +92,7 @@ bool palyndrome_str(string s, int left, int right){
 }
 
 int main(){
-    cout<<exponential(3,3)<<endl;
+    cout<<exponential(-3,3)<<endl;
     cout<<"--------------"<<endl;
     cout<<MDC(16,8)<<endl;
     cout<<"--------------"<<endl;
